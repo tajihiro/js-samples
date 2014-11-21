@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<title>Backbone.js イベント処理</title>
+
+	<!-- テンプレート作成 -->
+	<script type="text/template" id="animal-template"></script>
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
+	<script type="text/javascript" src="http://backbonejs.org/backbone-min.js"></script>
+</head>
+<body>
+	<h3>スペース有り(両側)'change : name'</h3>
+
+	<script type="text/javascript">
+	(function() {
+		//----------
+		// Model作成
+		//----------
+		var Person = Backbone.Model.extend({
+			//Attribute(属性)
+			defaults: {
+				name: "None",
+				age: 0
+			},
+			//コンストラクタ
+			initialize: function(){
+				console.log("初期化処理開始 : " + this.get("name"));
+				//イベント定義
+				this.on('change : name', function(){
+			 		console.log("名前が変わりました。");
+				}),
+				this.on('change : age', function(){
+			 		console.log("年齢が変わりました。");
+				})
+				console.log("初期化処理修了 : " + this.get("name"));
+			}
+		});
+		//Animalのインスタンス化	
+		var none = new Person();
+		none.set('name','ほげほげ');
+		//表示
+		console.log("私は、" + none.get('name') + " " + none.get('age') + "歳です。");
+		none.set('age',26);
+		//表示
+		console.log("私は、" + none.get('name') + " " + none.get('age') + "歳です。");
+
+	})();
+	</script>
+</body>
+</html>

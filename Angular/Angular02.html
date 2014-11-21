@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="myApp02">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Angular02</title>
+    <script type="text/javascript" src="js/exts/angular.js"></script>
+    <script type="text/javascript" src="js/app02.js"></script>
+
+</head>
+<!--Controller-->
+<body ng-controller="myController">
+
+<input type="checkbox" ng-model="hide">
+<div ng-if="hide">消える</div>
+<div ng-show="hide">隠れる</div>
+<div></div>
+
+<input type="button" ng-click="click()" value="Click!!"/>
+
+{{msg}}
+
+<div>Input</div>
+<input type="text" ng-model="txtModel"/>
+<div>{{txtModel}}</div>
+<div>{{txtModel.length}}</div>
+
+<div>Input trimed</div>
+<input type="text" ng-model="txtTrimedModel" ng-trim="true"/>
+<div>{{txtTrimedModel}}</div>
+<div>{{txtTrimedModel.length}}</div>
+
+<div>Number</div>
+<input type="number" ng-model="numberModel" min="0" max="5"/>
+<div>{{numberModel}}</div>
+
+<div>Date</div>
+<input type="date" ng-model="dateModel"/>
+<div>{{dateModel}}</div>
+
+<div>URL</div>
+<input type="url" ng-model="urlModel"/>
+<div>{{urlModel}}</div>
+
+</body>
+</html>

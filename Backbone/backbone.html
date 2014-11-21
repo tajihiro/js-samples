@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<title>こんにちは。動物さん</title>
+
+	<!-- テンプレート作成 -->
+	<script type="text/template" id="animal-template">
+		<div>
+			こんにちは。<b><%- name %>ちゃん。</b>(<%- species %>)
+		</div>
+	</script>
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
+	<script type="text/javascript" src="http://backbonejs.org/backbone-min.js"></script>
+</head>
+<body>
+	<h3>こんにちは。動物さん。</h3>
+	<div id="myList"></div>
+
+	<script type="text/javascript">
+	(function() {
+		//----------
+		// Model作成
+		//----------
+		var Animal = Backbone.Model.extend({
+			//Attribute(属性)
+			defaults: {
+				species: "Animal",
+				name: "None"
+			},
+			//コンストラクタ
+			initialize: function(){
+				console.log("初期化処理 : " + this.get("species"));
+			},
+			//メソッド
+			call: function(){
+				console.log("動物 : " + this.get("species"));
+				console.log("私の名前は" + this.get("name") + "です。");
+			}
+		});
+		//Animalのインスタンス化	
+		var none = new Animal();
+
+		//Animal(犬)のインスタンス化	
+		var dog = new Animal({
+			species: "犬",
+			name: "ポチ"
+		});
+		//Animal(猫)のインスタンス化	
+		var cat = new Animal({
+			species: "猫",
+			name: "タマ"
+		});
+
+		//----------
+		// View作成
+		//----------
+		var BaseView = Backbone.View.extend({
+			tagName: "div",
+			//id: "myDivId",
+			className: "myDivClass",
+			//テンプレート作成
+			template: _.template($('#animal-template').html()),
+			render: function(){
+				this.$el.html(this.template(this.model.toJSON()));
+				return this;
+			},
+			//イベント定義
+			events: {
+				"click": "call"
+			},
+			//イベント実装
+			call: function(){
+				this.model.call();
+				//alert(this.model.get("name"));
+			}
+		});
+		var dogDiv = new BaseView({model: dog});
+		var catDiv = new BaseView({model: cat});
+		$('#myList').append(dogDiv.render().el);
+		$('#myList').append(catDiv.render().el);
+
+		//---------------
+		// Collection作成
+		//---------------
+		var Animals = Backbone.Collection.extend({
+			model: Animal
+		});
+		var animals = new Animals([
+			{species: "猿", name: "えて吉"},
+			{species: "鳥", name: "ピーコ"},
+			{species: "牛", name: "モン助"},
+			{species: "蛙", name: "けろっぴ"},
+			{species: "馬", name: "馬之介"}
+		]);
+	})();
+	</script>
+</body>
+</html>
