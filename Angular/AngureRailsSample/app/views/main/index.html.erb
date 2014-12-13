@@ -1,0 +1,38 @@
+<h1>AngularJS#index</h1>
+
+<!-- Hello world -->
+{{'こんにちは。たぢさん。'}} {{10 + 22}}
+<p></p>
+
+<!-- init array repeat -->
+<div ng-init="langs = ['Java','Ruby','Swift','JavaScript','AngularJS']"></div>
+<div ng-repeat="lang in langs">
+  {{lang}}
+</div>
+
+<div ng-controller="mainController">
+  <input type="text" ng-model="memberId" ng-change="myfunc()">
+  <input type="text" ng-model="memberName">
+  {{memberName}}
+</div>
+
+<div ng-controller="memberListController">
+  <input type="text" ng-model="memberId" ng-change="changeId()">
+  <input type="text" ng-model="memberName">
+  {{memberName}}
+</div>
+
+<h4>Outside of Parent</h4>
+<div ng-controller="parentController">
+  <h4>Inside of Parent</h4>
+  {{message}}
+  <div ng-controller="childController1">
+    <h4>Inside of Child1</h4>
+    {{message}}
+  </div>
+
+  <div ng-controller="childController2">
+    <h4>Inside of Child2</h4>
+    {{message}}
+  </div>
+</div>
